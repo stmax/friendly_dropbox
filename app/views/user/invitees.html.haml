@@ -1,0 +1,8 @@
+%h2
+  My Invitees
+
+%ul
+  - @users.each do |user|
+    %li
+      = "#{user.name} #{user.email}"
+      = link_to 'Cancel friendship request', friendships_unassign_path(:id => user.id)

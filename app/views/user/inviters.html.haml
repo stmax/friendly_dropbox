@@ -1,0 +1,9 @@
+%h2
+  My Inviters
+
+%ul
+  - @users.each do |user|
+    %li
+      = "#{user.name} #{user.email}"
+      = link_to 'Accept', friendships_assign_path(:id => user.id)
+      = link_to 'Decline', friendships_unassign_path(:id => user.id)

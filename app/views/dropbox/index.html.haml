@@ -1,0 +1,28 @@
+%h1 My Files
+
+= render :partial => "breadcrumbs", :locals => { :path => @path }
+
+#toggle_upload_form2
+  = image_tag('upload.png', { :id => 'toggle_upload_form'})
+
+#upload_form.hidden
+  = form_tag(dropbox_upload_path, method: "post", :multipart => true) do |f|
+    = hidden_field_tag(:path, @path)
+    = file_field_tag(:file)
+    = submit_tag("Upload")
+
+%ul
+  - @contents.each do |content|
+    %li.dp_list
+      .dp_content
+        - if content['is_dir']
+          = link_to image_tag(show_icon(content['is_dir'])) + get_name_from_path(content['path']),
+            dropbox_index_path('path' => content['path'])
+        - else
+          = link_to image_tag(show_icon(content['is_dir'])) + get_name_from_path(content['path']),
+            dropbox_download_path('path' => content['path'])
+      .dp_share_link
+        = link_to 'Get share link to folder', '#', :onclick => "get_share_link('#{content['path']}', '#{url_for(dropbox_share_path)}', this);return false"
+      .share_result
+
+

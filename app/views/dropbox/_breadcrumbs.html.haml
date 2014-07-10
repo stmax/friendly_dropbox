@@ -1,0 +1,5 @@
+= link_to 'Home', dropbox_index_path()
+- @full_path = ''
+- @path[1..-1].each_line('/') do |folder, index|
+    - @full_path = @full_path + '/' + folder.delete('/')
+    = link_to folder.delete('/'), dropbox_index_path('path' => @full_path)
